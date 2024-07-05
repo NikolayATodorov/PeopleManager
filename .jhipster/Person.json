@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20240704154347"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "fullName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "90",
+      "fieldValidateRulesPattern": "[A-Za-zА-Яа-я]+[-A-Za-zА-Яа-я..]*[A-Za-zА-Яа-я]+"
+    },
+    {
+      "fieldName": "pin",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "10",
+      "fieldValidateRulesMinlength": "10",
+      "fieldValidateRulesPattern": "[0-9]{10}"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Person",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

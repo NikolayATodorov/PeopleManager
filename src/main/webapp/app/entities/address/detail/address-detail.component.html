@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (address()) {
+      <div>
+        <h2 data-cy="addressDetailsHeading"><span>Address</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ address()!.id }}</span>
+          </dd>
+          <dt><span>Address Type</span></dt>
+          <dd>
+            <span>{{ address()!.addressType }}</span>
+          </dd>
+          <dt><span>Address Info</span></dt>
+          <dd>
+            <span>{{ address()!.addressInfo }}</span>
+          </dd>
+          <dt><span>Person</span></dt>
+          <dd>
+            @if (address()!.person) {
+              <div>
+                <a [routerLink]="['/person', address()!.person?.id, 'view']">{{ address()!.person?.fullName }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/address', address()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

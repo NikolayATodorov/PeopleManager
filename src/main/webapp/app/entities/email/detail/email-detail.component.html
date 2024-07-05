@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (email()) {
+      <div>
+        <h2 data-cy="emailDetailsHeading"><span>Email</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ email()!.id }}</span>
+          </dd>
+          <dt><span>Email Type</span></dt>
+          <dd>
+            <span>{{ email()!.emailType }}</span>
+          </dd>
+          <dt><span>Email</span></dt>
+          <dd>
+            <span>{{ email()!.email }}</span>
+          </dd>
+          <dt><span>Person</span></dt>
+          <dd>
+            @if (email()!.person) {
+              <div>
+                <a [routerLink]="['/person', email()!.person?.id, 'view']">{{ email()!.person?.fullName }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/email', email()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

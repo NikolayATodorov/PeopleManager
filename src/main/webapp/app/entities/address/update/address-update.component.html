@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-address-heading" data-cy="AddressCreateUpdateHeading">Create or edit a Address</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_addressType">Address Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="addressType"
+            id="field_addressType"
+            data-cy="addressType"
+            formControlName="addressType"
+          />
+          @if (editForm.get('addressType')!.invalid && (editForm.get('addressType')!.dirty || editForm.get('addressType')!.touched)) {
+            <div>
+              @if (editForm.get('addressType')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              @if (editForm.get('addressType')?.errors?.maxlength) {
+                <small class="form-text text-danger">This field cannot be longer than 5 characters.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_addressInfo">Address Info</label>
+          <input
+            type="text"
+            class="form-control"
+            name="addressInfo"
+            id="field_addressInfo"
+            data-cy="addressInfo"
+            formControlName="addressInfo"
+          />
+          @if (editForm.get('addressInfo')!.invalid && (editForm.get('addressInfo')!.dirty || editForm.get('addressInfo')!.touched)) {
+            <div>
+              @if (editForm.get('addressInfo')?.errors?.maxlength) {
+                <small class="form-text text-danger">This field cannot be longer than 300 characters.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_person">Person</label>
+          <select
+            class="form-control"
+            id="field_person"
+            data-cy="person"
+            name="person"
+            formControlName="person"
+            [compareWith]="comparePerson"
+          >
+            @if (editForm.get(['person'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (personOption of peopleSharedCollection; track $index) {
+              <option [ngValue]="personOption">{{ personOption.fullName }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['person'])!.invalid && (editForm.get(['person'])!.dirty || editForm.get(['person'])!.touched)) {
+          <div>
+            @if (editForm.get(['person'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
